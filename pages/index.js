@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useId } from "react";
+
 import { useFieldArray, useForm } from "react-hook-form";
 
 const CollectionGenerator = () => {
@@ -26,22 +26,11 @@ const CollectionGenerator = () => {
         control,
         name: "fields",
     });
-    // const {
-    //     fields: object,
-    //     append: objectAppend,
-    //     remove: objectRemove,
-    // } = useFieldArray({
-    //     control,
-    //     name: "object",
-    // });
     const onSubmit = async (data) => {
-        const arr = data.fields.map((item) => {
-            return item.type != "object";
-        });
-        const res = await axios.post("https://v3dev.globalomls.com/generate/collection", {
-            ...data,
-        });
-        console.log(res);
+        // const res = await axios.post("https://v3dev.globalomls.com/generate/collection", {
+        //     ...data,
+        // });
+        console.log(data);
     };
     // const onSubmit = (data) => console.log(JSON.parse(data.fields[0]?.validate.oneof));
     const fieldTypes = [
@@ -60,7 +49,6 @@ const CollectionGenerator = () => {
         { value: "uuid", label: "UUID" },
         { value: "relation", label: "relation" },
     ];
-    const id = useId();
     return (
         <div>
             <h2 style={{ textAlign: "center" }}>Collection Generator</h2>
@@ -102,12 +90,6 @@ const CollectionGenerator = () => {
                                     placeholder="field Label"
                                     {...register(`fields.${index}.name`)}
                                 />
-                                {/* <input
-                                    type="text"
-                                    name="fieldDescription"
-                                    placeholder="field description"
-                                    {...register(`fields.${index}.fieldDescription`)}
-                                /> */}
                                 <select
                                     placeholder="Field Type"
                                     {...register(`fields.${index}.type`)}
